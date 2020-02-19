@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Performance</title>
+    <style>
+        .pre {
+            white-space: pre-wrap;
+            position: relative;
+            left: 1px;
+        }
+    </style>
+    <script>
+        window.performance.mark('htmlHeadEnd');
+    </script>
+</head>
+<body>
+    <script>
+        window.performance.mark('htmlBodyStart');
+    </script>
+    <div class="pre">
+        <img src="./navigationTiming.png" />
+        performance: [Reflect.ownKeys(Object.getPrototypeOf(performance))]
+            0: "timeOrigin" // performance.now的原点，等于performance.timing.navigationStart
+            1: "onresourcetimingbufferfull" // 当PerformanceResourceTiming过多时(超出bufferSize，默认150)，清空buffer，触发此事件<a href="http://www.html-js.com/article/2373">link</a>
+            2: "now" // 从timeOrigin到现在的时间，微秒精度，固定频率增加，不受系统时间影响
+            3: "getEntries" // 获取所有PerformanceTiming，包括navigation, user, resource等等；通过entryType区别
+            4: "getEntriesByType" // 通过entryType获取PerformanceTiming
+            5: "getEntriesByName" // 通过手动设置的mark点，meaure的name获取
+            6: "clearResourceTimings" // 清空
+            7: "setResourceTimingBufferSize" // 设置resourceTiming的buffer
+            8: "mark" // 手动打点，user timing api
+            9: "clearMarks" // 清空marks
+            10: "measure" // 添加measure，在两个mark之间
+            11: "clearMeasures"// 清空measure
+            12: "toJSON" // 顾名思义
+            13: "constructor" // 顾名思义
+            14: "memory" // MemoryInfo，内存使用信息
+            15: "navigation" // 网页导航类型，TYPE_BACK_FORWARD，TYPE_NAVIGATE， TYPE_RELOAD，TYPE_RESERVED，及其次数
+            16: "timing" // navigationTiming集合
+            17: Symbol(Symbol.toStringTag) // 不知道，Symbol值取不到，私有方法
+
+            // 所有资源加载完，包括图片事件，performance中有loadEventStart，为load开始记录时间，中间执行load绑定函数，然后到达loadEventEnd
+            // 间隔时间只包含同步函数，异步函数不影响load结束
+            window.onload
+
+            // parse完html的时间，在此之前如果有script，包含script的执行时间
+            window.DOMContentLoaded
+    </div>
+    <script>
+        // const pre = document.querySelector('.pre');
+        // setInterval(function() {
+        //     pre.style.left = Number(d.style.left.slice(0, -2)) + 1 + 'px';
+        // })
+        window.onload = function loadEvent() {
+            setTimeout(function() {
+                let start = performance.now();
+                let i = 0;
+                while(i<1000000) {i++;}
+                console.log('loadEvent中取peformance: ');
+                console.table(performance.timing);
+                console.log(`onload执行时间：${performance.now() - start}`);
+            }, 1000);
+        }
+        function mark() {
+            console.log(`当前script直接取timing: `);
+            console.table(performance.timing);
+            window.performance.mark('htmlBodyEnd');
+        }
+        mark();
+        window.performance.measure('htmlBodyParse', 'htmlBodyStart', 'htmlBodyEnd');
+    </script>
+</body>
+</html>

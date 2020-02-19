@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .arrow {
+            height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arrow::after {
+            content: '';
+            display: inline-block;
+            border-style: solid;
+            border-width: 1px;
+            border-color: transparent #ccc #ccc transparent;
+            width: 10px;
+            height: 10px;
+            transform: translate3d(0, -2px, 0) rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="arrow">
+        123
+    </div>
+</body>
+</html>

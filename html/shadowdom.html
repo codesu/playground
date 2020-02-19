@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            font-size: 50px;
+        }
+        p {
+            color: red;
+        }
+        #host {
+            font-weight: bold;
+            /* color: purple; */
+        }
+    </style>
+</head>
+<body>
+    <video src=""></video>
+    <div>
+        <p>Light DOM</p>
+    </div>
+    <div id="host">
+        <P>Default text</P>
+    </div>
+    <script>
+        const elem = document.querySelector('#host')
+        const shadowRoot = elem.attachShadow({mode: 'open'})
+        // const p = document.createElement('p')
+        // shadowRoot.appendChild(p)
+        // p.textContent = 'Shadow text'
+        shadowRoot.innerHTML = `
+            <p>inner Shadow</p>
+            <style>
+                :host {
+                    color: blue;
+                }
+            </style>
+        `
+    </script>
+</body>
+</html>

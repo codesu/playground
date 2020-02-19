@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            overflow: auto;
+        }
+        .component {
+            position: relative;
+            width: 350px;
+            margin: 0 auto;
+        }
+        .component-1 {
+            height: 200px;
+            background-color: #ddd;
+        }
+        .component-2 {
+            height: 100px;
+            background-color: #aaa;
+        }
+        .component-container:hover .op-btn {
+            display: block;
+        }
+        .op-btn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: -40px;
+            border: 1px solid #333;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="component-container">
+            <div class="component">
+                <div class="component-1"></div>
+                <div class="op-btn">xxx</div>
+            </div>
+        </div>
+        <div class="component-container">
+            <div class="component">
+                <div class="component-2"></div>
+                <div class="op-btn">xxx</div>
+            </div>
+        </div>
+        <div class="component-container">
+            <div class="component">
+                <div class="component-1"></div>
+                <div class="op-btn">xxx</div>
+            </div>
+        </div>
+        <div class="component-container">
+            <div class="component">
+                <div class="component-2"></div>
+                <div class="op-btn">xxx</div>
+            </div>
+        </div>
+        <div class="component-container">
+            <div class="component">
+                <div class="component-1"></div>
+                <div class="op-btn">xxx</div>
+            </div>
+        </div>
+        <div class="component-container">
+            <div class="component">
+                <div class="component-2"></div>
+                <div class="op-btn">xxx</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

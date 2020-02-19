@@ -1,0 +1,51 @@
+<!-- 解析错误， head放到body之前，但是内容为空 -->
+<!-- 但是容错很强，body里的head标签也表现了对应的功能 -->
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    123123
+</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+</head>
+</html>
+<test>abc</test>
+<span><div>def</div></span>
+
+<!-- 下面就是实际解析结果 -->
+<!-- 源代码这么写也可以执行 -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    4562343
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</body>
+</html> -->
+
+<!-- 自动将body后的内容加到了body -->
+<!-- 所以body之后的内容都会放到body里，即便没有意义 -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    Test After Body div
+</body>
+<div>asdfsad</div>
+<body>
+    hghhgj
+</body>
+<nothing>657567</nothing>
+</html> -->

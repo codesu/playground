@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        :root {
+            --pageBgColor: #333;
+            --progressColor: #777;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+        body,
+        .link {
+            margin: 0;
+            background-color: var(--pageBgColor);
+            color: #fff;
+        }
+        .code {
+            display: block;
+            margin: 10px;
+            white-space: pre-line;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .order {
+            display: block;
+            margin: 10px;
+        }
+
+        .order__title {
+            margin-bottom: 5px;
+        }
+
+        .order__items {
+            --lineHeight: 4px;
+            display: flex;
+            background: linear-gradient(var(--progressColor) 50%, transparent 0%) left calc(50% + var(--lineHeight) / 2) no-repeat;
+            background-size: 100% calc(var(--lineHeight) * 2);
+        }
+
+        .order__item {
+            position: relative;
+            width: 200px;
+            text-align: center;
+            background: linear-gradient(var(--pageBgColor) 50%, var(--pageBgColor) 100%) center top no-repeat;
+            background-size: 120px 100%;
+            color: red;
+        }
+
+        .order__item::after {
+            --borderWidth: 10px;
+            position: absolute;
+            content: '';
+            display: block;
+            top: calc(50% - var(--borderWidth));
+            right: -15px;
+            width: 0;
+            height: 0;
+            border-width: var(--borderWidth);
+            border-style: solid;
+            border-color: transparent transparent transparent var(--progressColor);
+        }
+    </style>
+    <script>
+        function setCodeFromStorage() {
+            document.querySelector('.code').innerText = (localStorage.getItem('EVENT_ORDER') || '')
+                .replace(/;/g, '\n');
+        }
+
+        function logEventName(event) {
+            let msg = `[EVENT]: ${event.type} (${document.visibilityState});`;
+            if (event.type === 'pageshow' || (event.type === 'visibilitychange' && document.visibilityState === 'visible')) {
+                msg += '\n';
+            }
+
+            localStorage.setItem('EVENT_ORDER', (localStorage.getItem('EVENT_ORDER') || '') + msg);
+        }
+
+        ['DOMContentLoaded', 'load', 'visibilitychange', 'pageshow', 'unload', 'beforeunload', 'pagehide']
+            .forEach((event) => {
+                window.addEventListener(event, logEventName);
+            });
+    </script>
+</head>
+<body>
+    <a
+        class="link"
+        href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Firefox/Releases/1.5/Using_Firefox_1.5_caching">
+        Using_Firefox_1.5_caching
+    </a>
+    <div class="order">
+        <h4 class="order__title">TL;DR</h4>
+        <div class="order__items">
+            <div class="order__item">beforeunload</div>
+            <div class="order__item">pagehide</div>
+            <div class="order__item">visibilitychange</div>
+            <div class="order__item">unload</div>
+            <div class="order__item">DCL</div>
+            <div class="order__item">load</div>
+            <div class="order__item">pageshow</div>
+        </div>
+    </div>
+    <button onclick="localStorage.clear();setCodeFromStorage();">clear log</button>
+    <code class="code"></code>
+    <script>
+        ['visibilitychange', 'pageshow'].forEach((event) => {
+            window.addEventListener(event, setCodeFromStorage);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" id="themeSheet">
+    <script>
+        // 1
+        // document.documentElement.style.setProperty('--primary-color', 'red')
+
+        // 2
+        // document.styleSheets[0].rules[0].style.setProperty('--primary-color', 'red')
+
+        // 3
+        const themeSheet = document.querySelector('#themeSheet')
+        themeSheet.sheet.rules[0].style.setProperty('--primary-color', 'red')
+    </script>
+</head>
+<body>
+theme color
+</body>
+</html>

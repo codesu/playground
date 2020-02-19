@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const isMobile = /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(navigator.userAgent);
+        const canvas = document.querySelector('#canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.lineWidth = 2;         // 直线宽度
+        ctx.strokeStyle = 'black';     // 路径的颜色
+        ctx.lineCap = 'round';         // 直线首尾端圆滑
+        ctx.lineJoin = 'round';     // 当两条线条交汇时，创建圆形边角
+        ctx.shadowBlur = 1;         // 边缘模糊，防止直线边缘出现锯齿
+        ctx.shadowColor = 'black';  // 边缘颜色
+
+
+        let pressed = false;
+        const start = (x, y) => {
+            pressed = true;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+        const move = (x, y) => {
+            if (!pressed) {
+                return;
+            }
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
+        const end = () => {
+            pressed = false;
+            ctx.closePath();
+        }
+
+        if (isMobile) {
+            canvas.addEventListener('touchmove', touchmove);
+            canvas.addEventListener('touchstart', touchstart);
+        } else {
+            canvas.addEventListener('mousedown', (e) => {
+                start(e.clientX, e.clientY)
+            })
+            canvas.addEventListener('mousemove', (e) => {
+                move(e.clientX, e.clientY)
+            })
+            canvas.addEventListener('mouseup', (e) => {
+                end()
+            })
+            canvas.addEventListener('mouseleave', (e) => {
+                end()
+            })
+        }
+    </script>
+</body>
+</html>
